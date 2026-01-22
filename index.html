@@ -76,4 +76,480 @@
     }
     @keyframes pulseLight {
       0%,100%{transform:scale(1);box-shadow:0 0 90px var(--glow1),0 0 180px var(--glow2),0 0 320px var(--glow3);}
-      50%{transform:scale(1.
+      50%{transform:scale(1.07);box-shadow:0 0 140px var(--glow1),0 0 280px var(--glow2),0 0 480px var(--glow3);}
+    }
+    h1 { font-size:6rem; font-weight:800; letter-spacing:-.07em; margin-bottom:.6rem; text-shadow:0 0 80px rgba(255,255,255,.45); }
+    h2 { font-size:3rem; margin:3rem 0 2rem; }
+    .tagline { font-size:1.9rem; color:var(--dim); margin-bottom:4rem; font-weight:300; }
+    .btn, .back-btn {
+      padding:1rem 2.5rem;
+      font-size:1.15rem;
+      border-radius:999px;
+      cursor:pointer;
+      transition:all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      margin:0 .5rem;
+      background:white;
+      color:black;
+      border:none;
+      box-shadow:var(--btn-base-glow);
+      transform:translateY(0);
+    }
+    .btn:hover, .back-btn:hover {
+      transform:translateY(-8px);
+      box-shadow:var(--btn-hover-glow);
+    }
+    .search-wrapper {
+      position:relative;
+      width:100%;
+      max-width:720px;
+      margin:0 auto 2.2rem;
+    }
+    .modern-search {
+      width:100%;
+      padding:1.3rem 4.5rem 1.3rem 1.6rem;
+      font-size:1.18rem;
+      background:var(--search-bg);
+      border:1px solid var(--search-border);
+      border-radius:22px;
+      color:white;
+      outline:none;
+      transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter:blur(16px);
+      box-shadow:0 10px 40px rgba(0,0,0,0.45);
+    }
+    .modern-search:focus {
+      border-color:var(--search-focus);
+      box-shadow:0 0 0 5px rgba(var(--search-focus), 0.35);
+      transform:scale(1.015);
+    }
+    .modern-search::placeholder {
+      color:#bbb;
+      opacity:0.75;
+      transition:opacity 0.4s ease;
+    }
+    .modern-search:focus::placeholder {
+      opacity:0.45;
+    }
+    .clear-search {
+      position:absolute;
+      right:18px;
+      top:50%;
+      transform:translateY(-50%);
+      background:rgba(255,255,255,0.08);
+      color:var(--accent);
+      border:none;
+      border-radius:50%;
+      width:34px;
+      height:34px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      opacity:0;
+      pointer-events:none;
+      transition:all 0.25s ease;
+      font-size:1.5rem;
+      font-weight:bold;
+      backdrop-filter:blur(10px);
+    }
+    .clear-search.visible {
+      opacity:1;
+      pointer-events:auto;
+    }
+    .clear-search:hover {
+      background:rgba(255,255,255,0.2);
+      transform:translateY(-50%) scale(1.18);
+    }
+    .menu {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:1.6rem;
+      max-width:1200px;
+      width:100%;
+      margin:1rem 0 4rem;
+    }
+    .menu-btn {
+      padding:1.3rem 2.2rem;
+      font-size:1.45rem;
+      background:var(--menu-bg);
+      color:white;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:14px;
+      transition:all .3s ease;
+      cursor:pointer;
+    }
+    .menu-btn:hover {
+      background:rgba(255,255,255,.14);
+      box-shadow:0 0 35px rgba(255,255,255,.25);
+      transform:translateY(-6px);
+    }
+    .menu-btn.hidden {
+      display:none !important;
+    }
+    .links {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:1.2rem;
+      max-width:1200px;
+      width:100%;
+    }
+    .link.hidden { display:none !important; }
+    .link {
+      padding:1.3rem;
+      background:var(--link-bg);
+      border:1px solid var(--link-border);
+      border-radius:10px;
+      text-decoration:none;
+      color:white;
+      transition:all .3s ease;
+      font-size:1.15rem;
+      text-align:center;
+    }
+    .link:hover {
+      background:rgba(255,255,255,.14);
+      box-shadow:0 0 30px rgba(255,255,255,.22);
+      transform:translateY(-4px);
+    }
+    .theme-selector {
+      position:absolute;
+      top:1.5rem;
+      right:1.5rem;
+      background:rgba(255,255,255,.08);
+      padding:.6rem 1.2rem;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.2);
+      z-index:20;
+    }
+    .theme-selector select {
+      background:transparent;
+      color:white;
+      border:none;
+      font-size:1rem;
+      cursor:pointer;
+      outline:none;
+    }
+    .theme-selector option { background:#111; color:white; }
+    .category-controls {
+      display:flex;
+      justify-content:center;
+      gap:1rem;
+      margin:2.5rem 0 1.5rem;
+      flex-wrap:wrap;
+    }
+    @media (max-width:768px) {
+      h1 { font-size:4.8rem; }
+      .big-star { width:220px; height:220px; }
+      .tagline { font-size:1.7rem; }
+      .search-wrapper { max-width:100%; }
+      .category-controls { flex-direction:column; gap:1rem; }
+      .menu { grid-template-columns:1fr; }
+      .links { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body class="theme-cosmic">
+  <div id="stars"></div>
+
+  <div class="screen" id="landing">
+    <div class="big-star"></div>
+    <h1>STARLINK</h1>
+    <p class="tagline">By: Gunnar Booth</p>
+    <button id="get-started" class="btn">Get Started</button>
+  </div>
+
+  <div class="screen hidden" id="menu">
+    <div class="theme-selector">
+      <select id="theme-select">
+        <option value="cosmic">Cosmic (default)</option>
+        <option value="neon">Neon Cyber</option>
+        <option value="purple">Midnight Purple</option>
+        <option value="void">Void Black</option>
+        <option value="emerald">Emerald Glow</option>
+        <option value="crimson">Crimson Pulse</option>
+        <option value="solar">Solar Flare</option>
+        <option value="aurora">Aurora Borealis</option>
+        <option value="galactic">Galactic Blue</option>
+        <option value="vapor">Retro Vaporwave</option>
+        <option value="silver">Monochrome Silver</option>
+        <option value="candy">Candy Neon</option>
+        <option value="toxic">Toxic Green</option>
+        <option value="ocean">Deep Ocean</option>
+        <option value="golden">Golden Hour</option>
+        <option value="lavender">Lavender Dream</option>
+        <option value="blood">Blood Moon</option>
+        <option value="ice">Ice Cold</option>
+        <option value="violet">Electric Violet</option>
+        <option value="desert">Desert Sunset</option>
+        <option value="forest">Forest Night</option>
+        <option value="cherry">Cherry Blossom</option>
+        <option value="sunset">Sunset Glow</option>
+        <option value="lime">Electric Lime</option>
+      </select>
+    </div>
+    <h2>Choose a Category</h2>
+    <div class="search-wrapper">
+      <input type="text" id="menu-search" class="modern-search" placeholder="Search categories..." autocomplete="off">
+      <button class="clear-search" aria-label="Clear search">×</button>
+    </div>
+    <div class="menu" id="menu-items">
+      <button class="menu-btn" data-category="proxy">Proxy Sites</button>
+      <button class="menu-btn" data-category="games">Game Sites</button>
+      <button class="menu-btn" data-category="music">Music Sites</button>
+      <button class="menu-btn" data-category="movies">Movie Sites</button>
+      <button class="menu-btn" data-category="ai">AI Sites</button>
+    </div>
+    <div class="category-controls">
+      <button id="back-to-landing" class="btn back-to-landing-btn">Back to Landing</button>
+    </div>
+  </div>
+
+  <div class="screen hidden category-container" id="category-view">
+    <div id="proxy" class="category hidden">
+      <h2>Proxy Sites</h2>
+      <div class="search-wrapper">
+        <input type="text" id="proxy-search" class="modern-search" placeholder="Search proxies..." autocomplete="off">
+        <button class="clear-search" aria-label="Clear search">×</button>
+      </div>
+      <div class="links" id="proxy-links">
+        <a href="https://ali-in-a-new-dress.global.ssl.fastly.net/" target="_blank" class="link">Boredom V2</a>
+        <a href="https://brightenglish.flightbooker.co.za/" target="_blank" class="link">Shadow</a>
+        <a href="https://learn-2-code.surge.sh/" target="_blank" class="link">Nebulo</a>
+        <a href="https://travelingagent.thepresenttraveller.com/" target="_blank" class="link">Glint</a>
+      </div>
+      <div class="category-controls">
+        <button class="back-btn">Back to Menu</button>
+      </div>
+    </div>
+
+    <div id="games" class="category hidden">
+      <h2>Game Sites</h2>
+      <div class="search-wrapper">
+        <input type="text" id="games-search" class="modern-search" placeholder="Search games..." autocomplete="off">
+        <button class="clear-search" aria-label="Clear search">×</button>
+      </div>
+      <div class="links" id="games-links">
+        <a href="https://imadejptr.github.io/" target="_blank" class="link">imadejptr</a>
+        <a href="https://theorytest.help/" target="_blank" class="link">The Marz Library</a>
+        <a href="https://algebra.learnnexus.one/" target="_blank" class="link">Reds Exploit Corner</a>
+        <a href="https://www.msn.com/en-xl/play" target="_blank" class="link">MSN</a>
+        <a href="https://neal.fun/" target="_blank" class="link">Neal.fun</a>
+        <a href="https://www.twoplayergames.org/" target="_blank" class="link">TwoPlayerGames</a>
+        <a href="https://bobzgames.github.io/GBA/" target="_blank" class="link">GBA Emulator</a>
+      </div>
+      <div class="category-controls">
+        <button class="back-btn">Back to Menu</button>
+      </div>
+    </div>
+
+    <div id="music" class="category hidden">
+      <h2>Music Sites</h2>
+      <div class="search-wrapper">
+        <input type="text" id="music-search" class="modern-search" placeholder="Search music..." autocomplete="off">
+        <button class="clear-search" aria-label="Clear search">×</button>
+      </div>
+      <div class="links" id="music-links">
+        <a href="https://playlistsound.com/" target="_blank" class="link">PlaylistSound</a>
+        <a href="https://music.amazon.com/" target="_blank" class="link">Amazon Music</a>
+      </div>
+      <div class="category-controls">
+        <button class="back-btn">Back to Menu</button>
+      </div>
+    </div>
+
+    <div id="movies" class="category hidden">
+      <h2>Movie Sites</h2>
+      <div class="search-wrapper">
+        <input type="text" id="movies-search" class="modern-search" placeholder="Search movies..." autocomplete="off">
+        <button class="clear-search" aria-label="Clear search">×</button>
+      </div>
+      <div class="links" id="movies-links">
+        <a href="https://donkey.to/" target="_blank" class="link">Donkey</a>
+      </div>
+      <div class="category-controls">
+        <button class="back-btn">Back to Menu</button>
+      </div>
+    </div>
+
+    <div id="ai" class="category hidden">
+      <h2>AI Sites</h2>
+      <div class="search-wrapper">
+        <input type="text" id="ai-search" class="modern-search" placeholder="Search AI..." autocomplete="off">
+        <button class="clear-search" aria-label="Clear search">×</button>
+      </div>
+      <div class="links" id="ai-links">
+        <a href="https://grok.x.ai/" target="_blank" class="link">Grok</a>
+        <a href="https://copilot.microsoft.com/" target="_blank" class="link">Microsoft Copilot</a>
+        <a href="https://gemini.google.com/app" target="_blank" class="link">Google Gemini</a>
+        <a href="https://www.perplexity.ai/" target="_blank" class="link">Perplexity AI</a>
+      </div>
+      <div class="category-controls">
+        <button class="back-btn">Back to Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Starfield
+    const container = document.getElementById('stars');
+    const stars = [];
+    const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    const count = 220;
+    for (let i = 0; i < count; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = 1.0 + Math.random() * 3.5;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      const baseOpacity = 0.45 + Math.random() * 0.4;
+      star.style.setProperty('--base-opacity', baseOpacity);
+      star.style.setProperty('--delay', i);
+      star.baseX = Math.random();
+      star.baseY = Math.random();
+      star.offsetX = 0;
+      star.offsetY = 0;
+      star.vx = (Math.random() - 0.5) * 0.12;
+      star.vy = (Math.random() - 0.5) * 0.12;
+      star.damping = 0.935 + Math.random() * 0.03;
+      container.appendChild(star);
+      stars.push(star);
+    }
+    window.addEventListener('mousemove', e => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+    function animate() {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      stars.forEach(star => {
+        let targetX = star.baseX * w;
+        let targetY = star.baseY * h;
+        const dx = mouse.x - targetX;
+        const dy = mouse.y - targetY;
+        const dist = Math.hypot(dx, dy) || 1;
+        const force = Math.min(80 / dist, 1.2);
+        star.vx += (dx / dist) * force * 0.085;
+        star.vy += (dy / dist) * force * 0.085;
+        star.vx += (Math.random() - 0.5) * 0.006;
+        star.vy += (Math.random() - 0.5) * 0.006;
+        star.vx *= star.damping;
+        star.vy *= star.damping;
+        star.offsetX += star.vx;
+        star.offsetY += star.vy;
+        if (Math.abs(star.offsetX) > w * 1.2) star.offsetX *= 0.35;
+        if (Math.abs(star.offsetY) > h * 1.2) star.offsetY *= 0.35;
+        const x = targetX + star.offsetX;
+        const y = targetY + star.offsetY;
+        star.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Theme switcher
+    document.getElementById('theme-select').addEventListener('change', e => {
+      document.body.className = 'theme-' + e.target.value;
+    });
+
+    // Navigation
+    const landing = document.getElementById('landing');
+    const menu = document.getElementById('menu');
+    const categoryView = document.getElementById('category-view');
+
+    document.getElementById('get-started').addEventListener('click', () => {
+      landing.classList.add('hidden');
+      menu.classList.remove('hidden');
+    });
+
+    document.querySelectorAll('.menu-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const catId = btn.dataset.category;
+        menu.classList.add('hidden');
+        categoryView.classList.remove('hidden');
+        document.querySelectorAll('.category').forEach(cat => cat.classList.add('hidden'));
+        document.getElementById(catId).classList.remove('hidden');
+      });
+    });
+
+    document.querySelectorAll('.back-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        categoryView.classList.add('hidden');
+        menu.classList.remove('hidden');
+      });
+    });
+
+    document.getElementById('back-to-landing').addEventListener('click', () => {
+      menu.classList.add('hidden');
+      landing.classList.remove('hidden');
+    });
+
+    // Search logic for all search bars
+    document.addEventListener('DOMContentLoaded', () => {
+      // Category searches
+      const categories = [
+        { search: 'proxy-search', container: 'proxy-links', itemClass: '.link' },
+        { search: 'games-search', container: 'games-links', itemClass: '.link' },
+        { search: 'music-search', container: 'music-links', itemClass: '.link' },
+        { search: 'movies-search', container: 'movies-links', itemClass: '.link' },
+        { search: 'ai-search', container: 'ai-links', itemClass: '.link' }
+      ];
+
+      categories.forEach(cat => {
+        const input = document.getElementById(cat.search);
+        const clear = document.querySelector(`#${cat.search.replace('-search','')} .clear-search`);
+        const containerEl = document.getElementById(cat.container);
+
+        if (!input || !containerEl) return;
+
+        input.addEventListener('input', () => {
+          const term = input.value.trim().toLowerCase();
+          if (clear) clear.classList.toggle('visible', term.length > 0);
+
+          const items = containerEl.querySelectorAll(cat.itemClass);
+          items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            item.classList.toggle('hidden', term !== '' && !text.includes(term));
+          });
+        });
+
+        if (clear) {
+          clear.addEventListener('click', () => {
+            input.value = '';
+            clear.classList.remove('visible');
+            const items = containerEl.querySelectorAll(cat.itemClass);
+            items.forEach(item => item.classList.remove('hidden'));
+            input.focus();
+          });
+        }
+      });
+
+      // Menu / category name search
+      const menuInput = document.getElementById('menu-search');
+      const menuClear = document.querySelector('#menu .clear-search');
+      const menuContainer = document.getElementById('menu-items');
+
+      if (menuInput && menuContainer) {
+        menuInput.addEventListener('input', () => {
+          const term = menuInput.value.trim().toLowerCase();
+          if (menuClear) menuClear.classList.toggle('visible', term.length > 0);
+
+          const buttons = menuContainer.querySelectorAll('.menu-btn');
+          buttons.forEach(btn => {
+            const text = btn.textContent.toLowerCase();
+            btn.classList.toggle('hidden', term !== '' && !text.includes(term));
+          });
+        });
+
+        if (menuClear) {
+          menuClear.addEventListener('click', () => {
+            menuInput.value = '';
+            menuClear.classList.remove('visible');
+            const buttons = menuContainer.querySelectorAll('.menu-btn');
+            buttons.forEach(btn => btn.classList.remove('hidden'));
+            menuInput.focus();
+          });
+        }
+      }
+    });
+  </script>
+</body>
+</html>
