@@ -4,26 +4,204 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>STARLINK</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,0 61.8,35 98.6,35 68.9,57.3 79,91 50,70 21.1,91 31.1,57.3 2.4,35 39.2,35' fill='%23ffffff'/></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,0 61.8,35 98.6,35 68.9,57.3 79,91 50,70 21.1,91 31.1,57.3 1.4,35 38.2,35'/></svg>">
   <style>
     :root {
+      /* Default (cosmic) */
       --bg: #000000;
       --text: #ffffff;
       --dim: #aaaaaa;
       --star: #ffffff;
       --glow1: rgba(255,255,255,0.9);
       --glow2: rgba(255,255,255,0.55);
-      --glow3: rgba(255,255,255,0.2);
+      --glow3: rgba(255,255,255,0.13);
       --menu-bg: rgba(255,255,255,0.06);
       --link-border: rgba(255,255,255,0.18);
       --link-bg: rgba(255,255,255,0.04);
       --accent: #00d4ff;
       --search-bg: rgba(20,20,30,0.55);
       --search-border: rgba(0,212,255,0.3);
-      --search-focus: rgba(0,212,255,0.7);
+      --search-focus: rgba(0,212,255,0.45);
       --btn-base-glow: 0 8px 25px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.3);
       --btn-hover-glow: 0 15px 40px rgba(0,0,0,0.6), 0 0 60px rgba(255,255,255,0.9);
     }
+
+    /* Theme variants — adjust these to tweak palettes */
+    body.theme-cosmic { /* default already matches :root */ }
+
+    body.theme-neon {
+      --bg:#07000a;
+      --text:#e6f7ff;
+      --dim:#bcdff5;
+      --star:#8effff;
+      --glow1: rgba(142,255,255,0.95);
+      --glow2: rgba(0,212,255,0.42);
+      --glow3: rgba(0,212,255,0.12);
+      --menu-bg: rgba(0,212,255,0.06);
+      --link-bg: rgba(0,212,255,0.04);
+      --link-border: rgba(0,212,255,0.18);
+      --accent:#00f0ff;
+      --search-bg: rgba(5,5,12,0.6);
+      --search-border: rgba(0,212,255,0.25);
+      --search-focus: rgba(0,212,255,0.5);
+      --btn-base-glow: 0 10px 30px rgba(0,0,0,0.6), 0 0 18px rgba(0,240,255,0.18);
+      --btn-hover-glow: 0 18px 50px rgba(0,0,0,0.7), 0 0 80px rgba(0,240,255,0.95);
+    }
+
+    body.theme-purple {
+      --bg:#0b0514;
+      --text:#fff7ff;
+      --dim:#dec7f0;
+      --star:#f2d9ff;
+      --glow1: rgba(255,210,255,0.95);
+      --glow2: rgba(200,120,255,0.36);
+      --glow3: rgba(150,80,220,0.12);
+      --menu-bg: rgba(120,60,160,0.06);
+      --link-bg: rgba(120,60,160,0.04);
+      --link-border: rgba(200,120,255,0.12);
+      --accent:#9b6bff;
+      --search-bg: rgba(18,8,25,0.6);
+      --search-border: rgba(155,107,255,0.22);
+      --search-focus: rgba(155,107,255,0.5);
+    }
+
+    body.theme-void {
+      --bg:#000000;
+      --text:#dcdcdc;
+      --dim:#9a9a9a;
+      --star:#ffffff;
+      --glow1: rgba(255,255,255,0.9);
+      --glow2: rgba(255,255,255,0.35);
+      --glow3: rgba(255,255,255,0.08);
+      --menu-bg: rgba(255,255,255,0.03);
+      --link-bg: rgba(255,255,255,0.02);
+      --link-border: rgba(255,255,255,0.06);
+      --accent:#8be6ff;
+      --search-bg: rgba(10,10,12,0.6);
+      --search-border: rgba(139,230,255,0.14);
+      --search-focus: rgba(139,230,255,0.4);
+    }
+
+    body.theme-emerald {
+      --bg:#00120a;
+      --text:#eafff2;
+      --dim:#bfeed1;
+      --star:#bfffda;
+      --glow1: rgba(190,255,210,0.9);
+      --glow2: rgba(0,200,120,0.32);
+      --glow3: rgba(0,150,90,0.08);
+      --menu-bg: rgba(0,200,120,0.06);
+      --link-bg: rgba(0,200,120,0.03);
+      --link-border: rgba(0,200,120,0.12);
+      --accent:#00ffa2;
+      --search-bg: rgba(4,10,8,0.6);
+      --search-border: rgba(0,200,120,0.22);
+      --search-focus: rgba(0,200,120,0.44);
+    }
+
+    body.theme-crimson {
+      --bg:#120005;
+      --text:#ffdfe6;
+      --dim:#f7b7c0;
+      --star:#ffd7e2;
+      --glow1: rgba(255,210,220,0.9);
+      --glow2: rgba(255,80,120,0.28);
+      --glow3: rgba(180,40,70,0.06);
+      --menu-bg: rgba(255,80,120,0.04);
+      --link-bg: rgba(255,80,120,0.02);
+      --link-border: rgba(255,80,120,0.12);
+      --accent:#ff6b9b;
+      --search-bg: rgba(20,6,8,0.6);
+      --search-border: rgba(255,80,120,0.2);
+      --search-focus: rgba(255,80,120,0.42);
+    }
+
+    body.theme-solar {
+      --bg:#0b0a03;
+      --text:#fff8e6;
+      --dim:#ffeab2;
+      --star:#fff1c7;
+      --glow1: rgba(255,235,170,0.9);
+      --glow2: rgba(255,150,40,0.26);
+      --glow3: rgba(200,110,20,0.06);
+      --menu-bg: rgba(255,180,60,0.04);
+      --link-bg: rgba(255,180,60,0.02);
+      --link-border: rgba(255,180,60,0.12);
+      --accent:#ffb84d;
+      --search-bg: rgba(22,18,8,0.6);
+      --search-border: rgba(255,180,60,0.18);
+      --search-focus: rgba(255,180,60,0.38);
+    }
+
+    body.theme-aurora {
+      --bg:#001218;
+      --text:#eafcff;
+      --dim:#bfe7f1;
+      --star:#c7fff8;
+      --glow1: rgba(200,255,245,0.95);
+      --glow2: rgba(90,230,200,0.3);
+      --glow3: rgba(60,180,160,0.08);
+      --menu-bg: rgba(60,200,180,0.04);
+      --link-bg: rgba(60,200,180,0.02);
+      --link-border: rgba(60,200,180,0.12);
+      --accent:#7df7e5;
+      --search-bg: rgba(6,12,13,0.6);
+      --search-border: rgba(125,247,229,0.18);
+      --search-focus: rgba(125,247,229,0.42);
+    }
+
+    body.theme-galactic {
+      --bg:#001028;
+      --text:#e8f7ff;
+      --dim:#bcdff5;
+      --star:#dff7ff;
+      --glow1: rgba(220,250,255,0.95);
+      --glow2: rgba(0,150,255,0.28);
+      --glow3: rgba(0,80,160,0.06);
+      --menu-bg: rgba(0,150,255,0.04);
+      --link-bg: rgba(0,150,255,0.02);
+      --link-border: rgba(0,150,255,0.12);
+      --accent:#4fd1ff;
+      --search-bg: rgba(8,12,22,0.6);
+      --search-border: rgba(79,209,255,0.18);
+      --search-focus: rgba(79,209,255,0.38);
+    }
+
+    body.theme-vapor {
+      --bg:#110018;
+      --text:#ffeefc;
+      --dim:#ffd9f7;
+      --star:#ffd9fc;
+      --glow1: rgba(255,210,245,0.92);
+      --glow2: rgba(255,120,200,0.26);
+      --glow3: rgba(160,60,120,0.06);
+      --menu-bg: rgba(255,120,200,0.04);
+      --link-bg: rgba(255,120,200,0.02);
+      --link-border: rgba(255,120,200,0.12);
+      --accent:#ff86d8;
+      --search-bg: rgba(18,8,20,0.6);
+      --search-border: rgba(255,120,200,0.18);
+      --search-focus: rgba(255,120,200,0.36);
+    }
+
+    body.theme-silver {
+      --bg:#0f1112;
+      --text:#f5f7f8;
+      --dim:#bfc6c9;
+      --star:#ffffff;
+      --glow1: rgba(255,255,255,0.9);
+      --glow2: rgba(220,220,220,0.26);
+      --glow3: rgba(200,200,200,0.06);
+      --menu-bg: rgba(255,255,255,0.03);
+      --link-bg: rgba(255,255,255,0.02);
+      --link-border: rgba(255,255,255,0.08);
+      --accent:#aab3ba;
+      --search-bg: rgba(18,20,24,0.5);
+      --search-border: rgba(170,179,186,0.12);
+      --search-focus: rgba(170,179,186,0.28);
+    }
+
+    /* lightweight base layout */
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
       font-family: system-ui, sans-serif;
@@ -33,7 +211,7 @@
       overflow: hidden;
       position: relative;
       cursor: default;
-      transition: background 0.6s ease;
+      transition: background 0.6s ease, color 0.3s ease;
     }
     #stars { position:fixed; inset:0; pointer-events:none; z-index:1; }
     .star {
@@ -47,38 +225,6 @@
       animation-delay:calc(var(--delay)*0.06s);
     }
     @keyframes appear { to { opacity: var(--base-opacity, 0.8); } }
-    /* Shooting star styles */
-    .shooting-star {
-      position: absolute;
-      pointer-events: none;
-      z-index: 2; /* above regular stars but below UI screens */
-      will-change: transform, opacity;
-      transform-origin: 0 50%;
-      opacity: 0;
-      filter: drop-shadow(0 0 8px rgba(255,255,255,0.9));
-      /* thin bright head + long fading trail via gradient */
-      background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 6%, rgba(255,255,255,0.35) 28%, rgba(255,255,255,0.06) 60%, rgba(255,255,255,0) 100%);
-      height: 2px; /* will scale */
-      border-radius: 2px;
-      transform: translate3d(0,0,0) rotate(0deg) scaleY(1);
-      box-shadow: 0 0 8px rgba(255,255,255,0.8), 0 0 24px rgba(0,212,255,0.08);
-    }
-    @keyframes shoot {
-      0% {
-        opacity: 0;
-        transform: translate3d(0,0,0) rotate(var(--angle)) scaleY(1);
-      }
-      6% {
-        opacity: 1;
-      }
-      90% {
-        opacity: 0.9;
-      }
-      100% {
-        opacity: 0;
-        transform: translate3d(var(--tx), var(--ty), 0) rotate(var(--angle)) scaleY(1.05);
-      }
-    }
 
     .screen {
       position:relative;
@@ -111,9 +257,10 @@
       0%,100%{transform:scale(1);box-shadow:0 0 90px var(--glow1),0 0 180px var(--glow2),0 0 320px var(--glow3);}
       50%{transform:scale(1.07);box-shadow:0 0 140px var(--glow1),0 0 280px var(--glow2),0 0 480px var(--glow3);}
     }
-    h1 { font-size:6rem; font-weight:800; letter-spacing:-.07em; margin-bottom:.6rem; text-shadow:0 0 80px rgba(255,255,255,.45); }
+    h1 { font-size:6rem; font-weight:800; letter-spacing:-.07em; margin-bottom:.6rem; text-shadow:0 0 80px rgba(255,255,255,.15); }
     h2 { font-size:3rem; margin:3rem 0 2rem; }
     .tagline { font-size:1.9rem; color:var(--dim); margin-bottom:4rem; font-weight:300; }
+
     .btn, .back-btn {
       padding:1rem 2.5rem;
       font-size:1.15rem;
@@ -121,8 +268,8 @@
       cursor:pointer;
       transition:all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
       margin:0 .5rem;
-      background:white;
-      color:black;
+      background:var(--text);
+      color:var(--bg);
       border:none;
       box-shadow:var(--btn-base-glow);
       transform:translateY(0);
@@ -131,6 +278,7 @@
       transform:translateY(-8px);
       box-shadow:var(--btn-hover-glow);
     }
+
     .search-wrapper {
       position:relative;
       width:100%;
@@ -144,7 +292,7 @@
       background:var(--search-bg);
       border:1px solid var(--search-border);
       border-radius:22px;
-      color:white;
+      color:var(--text);
       outline:none;
       transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       backdrop-filter:blur(16px);
@@ -152,7 +300,7 @@
     }
     .modern-search:focus {
       border-color:var(--search-focus);
-      box-shadow:0 0 0 5px rgba(var(--search-focus), 0.35);
+      box-shadow:0 0 0 5px var(--search-focus);
       transform:scale(1.015);
     }
     .modern-search::placeholder {
@@ -193,32 +341,35 @@
       background:rgba(255,255,255,0.2);
       transform:translateY(-50%) scale(1.18);
     }
+
     .menu {
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
       gap:1.6rem;
       max-width:1200px;
       width:100%;
-      margin:1rem 0 4rem;
+      margin:1rem 0 2rem;
+      align-items:start;
     }
     .menu-btn {
       padding:1.3rem 2.2rem;
       font-size:1.45rem;
       background:var(--menu-bg);
-      color:white;
-      border:1px solid rgba(255,255,255,.18);
+      color:var(--text);
+      border:1px solid var(--link-border);
       border-radius:14px;
       transition:all .3s ease;
       cursor:pointer;
     }
     .menu-btn:hover {
-      background:rgba(255,255,255,.14);
-      box-shadow:0 0 35px rgba(255,255,255,.25);
+      background:rgba(255,255,255,.05);
+      box-shadow:0 0 35px rgba(255,255,255,.06);
       transform:translateY(-6px);
     }
     .menu-btn.hidden {
       display:none !important;
     }
+
     .links {
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -233,35 +384,38 @@
       border:1px solid var(--link-border);
       border-radius:10px;
       text-decoration:none;
-      color:white;
+      color:var(--text);
       transition:all .3s ease;
       font-size:1.15rem;
       text-align:center;
     }
     .link:hover {
-      background:rgba(255,255,255,.14);
-      box-shadow:0 0 30px rgba(255,255,255,.22);
+      background:rgba(255,255,255,.04);
+      box-shadow:0 0 30px rgba(255,255,255,.06);
       transform:translateY(-4px);
     }
+
+    /* Theme selector inside menu (no absolute positioning) */
     .theme-selector {
-      position:absolute;
-      top:1.5rem;
-      right:1.5rem;
-      background:rgba(255,255,255,.08);
-      padding:.6rem 1.2rem;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.2);
-      z-index:20;
+      margin:0 0 1rem;
+      width:100%;
+      display:flex;
+      justify-content:flex-end;
+      align-items:center;
+      gap:0.8rem;
     }
+    .theme-selector label { color:var(--dim); font-size:0.95rem; }
     .theme-selector select {
       background:transparent;
-      color:white;
-      border:none;
-      font-size:1rem;
+      color:var(--text);
+      border:1px solid var(--link-border);
+      padding:0.45rem 0.7rem;
+      border-radius:8px;
+      font-size:0.95rem;
       cursor:pointer;
       outline:none;
     }
-    .theme-selector option { background:#111; color:white; }
+
     .category-controls {
       display:flex;
       justify-content:center;
@@ -269,7 +423,8 @@
       margin:2.5rem 0 1.5rem;
       flex-wrap:wrap;
     }
-    /* credits screen specifics */
+
+    /* credits */
     .credits {
       max-width:900px;
       text-align:left;
@@ -281,6 +436,7 @@
     }
     .credits h3 { margin-bottom:0.4rem; font-size:1.3rem; }
     .credits p, .credits li { color:var(--dim); line-height:1.6; }
+
     @media (max-width:768px) {
       h1 { font-size:4.8rem; }
       .big-star { width:220px; height:220px; }
@@ -289,10 +445,11 @@
       .category-controls { flex-direction:column; gap:1rem; }
       .menu { grid-template-columns:1fr; }
       .links { grid-template-columns:1fr; }
+      .theme-selector { justify-content:center; }
     }
   </style>
 </head>
-<body class="theme-cosmic">
+<body>
   <div id="stars"></div>
 
   <div class="screen" id="landing">
@@ -303,8 +460,10 @@
   </div>
 
   <div class="screen hidden" id="menu">
-    <div class="theme-selector">
-      <select id="theme-select">
+    <!-- Theme selector moved into menu as inline element -->
+    <div class="theme-selector" aria-hidden="false">
+      <label for="theme-select">Theme:</label>
+      <select id="theme-select" aria-label="Select theme">
         <option value="cosmic">Cosmic (default)</option>
         <option value="neon">Neon Cyber</option>
         <option value="purple">Midnight Purple</option>
@@ -331,6 +490,7 @@
         <option value="lime">Electric Lime</option>
       </select>
     </div>
+
     <h2>Choose a Category</h2>
     <div class="search-wrapper">
       <input type="text" id="menu-search" class="modern-search" placeholder="Search categories..." autocomplete="off">
@@ -434,7 +594,6 @@
     </div>
   </div>
 
-  <!-- Credits screen -->
   <div class="screen hidden" id="credits">
     <h2>Credits</h2>
     <div class="credits" role="document" aria-labelledby="credits">
@@ -462,7 +621,7 @@
   </div>
 
   <script>
-    // Starfield (static twinkling stars)
+    // Starfield (static twinkling stars) — kept, shooting stars removed
     const container = document.getElementById('stars');
     const stars = [];
     const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
@@ -518,117 +677,32 @@
     }
     animate();
 
-    // Shooting stars (smooth, frequent, aesthetic)
-    (function setupShootingStars() {
-      const viewportW = () => window.innerWidth;
-      const viewportH = () => window.innerHeight;
+    // Theme handling: apply theme classes and persist choice
+    (function themeSetup() {
+      const themeSelect = document.getElementById('theme-select');
+      // Collect available theme names from options dynamically
+      const available = Array.from(themeSelect.options).map(o => o.value);
 
-      // spawn a single shooting star with configurable randomness
-      function spawnShootingStar() {
-        const el = document.createElement('div');
-        el.className = 'shooting-star';
-
-        // length of the trail in px
-        const minLen = Math.round(Math.max(viewportW(), viewportH()) * 0.12);
-        const maxLen = Math.round(Math.max(viewportW(), viewportH()) * 0.32);
-        const len = Math.floor(minLen + Math.random() * (maxLen - minLen));
-
-        // choose a start edge (top or left) biased toward top-left so they travel down-right
-        const startFrom = Math.random() < 0.6 ? 'top' : 'left';
-
-        let startX, startY, tx, ty, angleDeg;
-        if (startFrom === 'top') {
-          startX = Math.random() * viewportW() * 0.85; // not too close to right edge
-          startY = -20 - Math.random() * 60;
-          // travel diagonally down-right-ish
-          const travelX = len + 80 + Math.random() * (viewportW() * 0.25);
-          const travelY = len * (0.6 + Math.random() * 0.7);
-          tx = travelX + 'px';
-          ty = travelY + 'px';
-          angleDeg = Math.atan2(travelY, travelX) * 180 / Math.PI;
-        } else {
-          startX = -20 - Math.random() * 60;
-          startY = Math.random() * viewportH() * 0.6; // not too low
-          const travelX = len * (0.9 + Math.random() * 1.2);
-          const travelY = len * (0.4 + Math.random() * 0.9);
-          tx = travelX + 'px';
-          ty = travelY + 'px';
-          angleDeg = Math.atan2(travelY, travelX) * 180 / Math.PI;
-        }
-
-        // set position and size
-        el.style.left = startX + 'px';
-        el.style.top = startY + 'px';
-        el.style.width = Math.max(120, len) + 'px';
-        // slightly vary thickness
-        const thickness = (0.9 + Math.random() * 1.8).toFixed(2) + 'px';
-        el.style.height = thickness;
-
-        // CSS vars for keyframes
-        el.style.setProperty('--tx', tx);
-        el.style.setProperty('--ty', ty);
-        el.style.setProperty('--angle', angleDeg + 'deg');
-
-        // duration and delay
-        const duration = (0.9 + Math.random() * 1.2).toFixed(2) + 's'; // quick, crisp streaks
-        const delay = (Math.random() * 0.1).toFixed(2) + 's';
-        el.style.animation = `shoot ${duration} cubic-bezier(.2,.8,.2,1) ${delay} forwards`;
-
-        // slight random scale for variety
-        el.style.transform = `translate3d(0,0,0) rotate(${angleDeg}deg) scaleY(${0.8 + Math.random() * 0.7})`;
-
-        container.appendChild(el);
-
-        // cleanup after animation
-        el.addEventListener('animationend', () => {
-          if (el && el.parentNode) el.parentNode.removeChild(el);
-        });
-
-        // head dot for brightness
-        const head = document.createElement('div');
-        head.style.position = 'absolute';
-        head.style.right = '0';
-        head.style.top = '50%';
-        head.style.transform = 'translateY(-50%)';
-        head.style.width = '10px';
-        head.style.height = '10px';
-        head.style.borderRadius = '50%';
-        head.style.background = 'linear-gradient(45deg, white, rgba(0,212,255,0.9))';
-        head.style.boxShadow = '0 0 10px rgba(255,255,255,0.9), 0 0 22px rgba(0,212,255,0.16)';
-        head.style.pointerEvents = 'none';
-        head.style.opacity = '0.98';
-        head.style.filter = 'blur(0.6px)';
-        el.appendChild(head);
+      function applyTheme(name) {
+        // sanitize
+        if (!available.includes(name)) name = 'cosmic';
+        // remove any theme- class we might have added previously
+        available.forEach(t => document.body.classList.remove('theme-' + t));
+        document.body.classList.add('theme-' + name);
+        try { localStorage.setItem('starlink-theme', name); } catch (e) {}
       }
 
-      // spawn stars frequently but with slight randomness, plus occasional double-bursts
-      function scheduleNext() {
-        // choose next interval (frequent): 600ms - 3000ms, biased to more frequent
-        const base = 800 + Math.pow(Math.random(), 0.9) * 1600; // skew towards lower
-        // spawn 1 or sometimes 2-3 in quick succession for a "trail" effect
-        setTimeout(() => {
-          // sometimes spawn a quick mini-burst
-          const burst = Math.random() < 0.16 ? (2 + Math.floor(Math.random() * 2)) : 1;
-          for (let i = 0; i < burst; i++) {
-            setTimeout(spawnShootingStar, i * (60 + Math.random() * 160));
-          }
-          scheduleNext();
-        }, base);
-      }
+      // initialize from localStorage or default
+      let saved = 'cosmic';
+      try { saved = localStorage.getItem('starlink-theme') || saved; } catch (e) {}
+      if (!available.includes(saved)) saved = 'cosmic';
+      themeSelect.value = saved;
+      applyTheme(saved);
 
-      // Start after a short delay so initial load isn't too busy
-      setTimeout(scheduleNext, 900);
-      // Also spawn a subtle initial streak
-      setTimeout(spawnShootingStar, 1200);
-
-      // keep responsive on resize
-      window.addEventListener('resize', () => {});
+      themeSelect.addEventListener('change', (e) => {
+        applyTheme(e.target.value);
+      });
     })();
-
-    // Theme switcher
-    document.getElementById('theme-select').addEventListener('change', e => {
-      document.body.className = 'theme-' + e.target.value;
-    });
 
     // Navigation
     const landing = document.getElementById('landing');
