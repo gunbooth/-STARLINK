@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>STARLINK</title>
 
-  <!-- White star favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,0 61.8,35 98.6,35 70.9,57.3 79,91 50,70 18.2,91 29.1,57.3 1.4,35 38.2,35' fill='%23ffffff' stroke='%23ffffff' stroke-width='2'/></svg>">
 
   <style>
@@ -25,12 +24,12 @@
       --search-border: rgba(0,212,255,0.3);
       --search-focus: rgba(0,212,255,0.7);
       --btn-base-glow: 0 8px 25px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.3);
-      --btn-hover-glow: 0 15px 40px rgba(0,0,0,0.6), 0 0 60px rgba(255,255,255,0.9); /* strong white backlight */
+      --btn-hover-glow: 0 15px 40px rgba(0,0,0,0.6), 0 0 60px rgba(255,255,255,0.9);
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
@@ -91,7 +90,6 @@
     h2 { font-size:3rem; margin:3rem 0 2rem; }
     .tagline { font-size:1.9rem; color:var(--dim); margin-bottom:4rem; font-weight:300; }
 
-    /* All buttons with white backlight on hover */
     .btn, .back-btn, .random-btn, .clear-btn {
       padding:1rem 2.5rem;
       font-size:1.15rem;
@@ -108,7 +106,7 @@
 
     .btn:hover, .back-btn:hover, .random-btn:hover, .clear-btn:hover {
       transform:translateY(-8px);
-      box-shadow:var(--btn-hover-glow); /* bright white backlight */
+      box-shadow:var(--btn-hover-glow);
     }
 
     .random-btn, .clear-btn {
@@ -129,7 +127,6 @@
       flex-wrap:wrap;
     }
 
-    /* Modern large dark search bar */
     .search-wrapper {
       position:relative;
       width:100%;
@@ -148,7 +145,6 @@
       outline:none;
       transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       backdrop-filter:blur(16px);
-      -webkit-backdrop-filter:blur(16px);
       box-shadow:0 10px 40px rgba(0,0,0,0.45);
     }
 
@@ -292,7 +288,6 @@
 
   <div id="stars"></div>
 
-  <!-- Landing -->
   <div class="screen" id="landing">
     <div class="big-star"></div>
     <h1>STARLINK</h1>
@@ -300,7 +295,6 @@
     <button id="get-started" class="btn">Get Started</button>
   </div>
 
-  <!-- Menu -->
   <div class="screen hidden" id="menu">
     <div class="theme-selector">
       <select id="theme-select">
@@ -344,12 +338,11 @@
     </div>
   </div>
 
-  <!-- Categories -->
   <div class="screen hidden category-container" id="category-view">
     <div id="proxy" class="category hidden">
       <h2>Proxy Sites</h2>
       <div class="search-wrapper">
-        <input type="text" id="proxy-search" class="modern-search" placeholder="Search proxies..." autocomplete="off">
+        <input type="text" id="search-proxy" class="modern-search" placeholder="Search proxies..." autocomplete="off">
         <button class="clear-search" aria-label="Clear search">×</button>
       </div>
       <div class="links" id="proxy-links">
@@ -367,7 +360,7 @@
     <div id="games" class="category hidden">
       <h2>Game Sites</h2>
       <div class="search-wrapper">
-        <input type="text" id="games-search" class="modern-search" placeholder="Search games..." autocomplete="off">
+        <input type="text" id="search-games" class="modern-search" placeholder="Search games..." autocomplete="off">
         <button class="clear-search" aria-label="Clear search">×</button>
       </div>
       <div class="links" id="games-links">
@@ -534,27 +527,32 @@
       landing.classList.remove('hidden');
     });
 
-    // Fixed & working search logic
+    // Working search function
     function setupSearch(categoryId) {
       const input = document.getElementById(`search-${categoryId}`);
       const clearBtn = document.querySelector(`#${categoryId} .clear-search`);
       const linksContainer = document.getElementById(`links-${categoryId}`);
 
-      if (!input || !clearBtn || !linksContainer) return;
+      if (!input || !clearBtn || !linksContainer) {
+        console.warn(`Missing elements for category: ${categoryId}`);
+        return;
+      }
 
-      // Filtering
       input.addEventListener('input', () => {
-        const term = input.value.toLowerCase().trim();
+        const term = input.value.trim().toLowerCase();
+
+        // Show/hide clear button
         clearBtn.classList.toggle('visible', term.length > 0);
 
+        // Filter links
         const links = linksContainer.querySelectorAll('.link');
         links.forEach(link => {
           const text = link.textContent.toLowerCase();
-          link.classList.toggle('hidden', term.length > 0 && !text.includes(term));
+          const isMatch = term === '' || text.includes(term);
+          link.classList.toggle('hidden', !isMatch);
         });
       });
 
-      // Clear
       clearBtn.addEventListener('click', () => {
         input.value = '';
         clearBtn.classList.remove('visible');
@@ -564,7 +562,7 @@
       });
     }
 
-    // Apply to all categories
+    // Initialize search for all categories
     ['proxy', 'games', 'music', 'movies', 'ai'].forEach(setupSearch);
 
     // Random across all
