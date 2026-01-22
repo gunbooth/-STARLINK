@@ -527,43 +527,50 @@
       landing.classList.remove('hidden');
     });
 
-    // WORKING SEARCH LOGIC (simplified & robust)
-    function setupSearch(categoryId) {
-      const input = document.getElementById(`search-${categoryId}`);
-      const clearBtn = document.querySelector(`#${categoryId} .clear-search`);
-      const container = document.getElementById(`links-${categoryId}`);
+    // WORKING SEARCH LOGIC — runs after DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      const categories = [
+        { id: 'proxy',  search: 'proxy-search',  links: 'proxy-links'  },
+        { id: 'games',  search: 'games-search',  links: 'games-links'  },
+        { id: 'music',  search: 'music-search',  links: 'music-links'  },
+        { id: 'movies', search: 'movies-search', links: 'movies-links' },
+        { id: 'ai',     search: 'ai-search',     links: 'ai-links'     }
+      ];
 
-      if (!input || !container) {
-        console.warn(`Search failed for ${categoryId} — missing input or container`);
-        return;
-      }
+      categories.forEach(cat => {
+        const input = document.getElementById(cat.search);
+        const clear = document.querySelector(`#${cat.id} .clear-search`);
+        const container = document.getElementById(cat.links);
 
-      input.addEventListener('input', () => {
-        const term = input.value.trim().toLowerCase();
+        if (!input || !container) {
+          console.warn(`Search setup failed for ${cat.id}`);
+          return;
+        }
 
-        if (clearBtn) clearBtn.classList.toggle('visible', term.length > 0);
+        input.addEventListener('input', () => {
+          const term = input.value.trim().toLowerCase();
 
-        const links = container.querySelectorAll('.link');
-        links.forEach(link => {
-          const text = link.textContent.toLowerCase();
-          const matches = term === '' || text.includes(term);
-          link.classList.toggle('hidden', !matches);
-        });
-      });
+          if (clear) clear.classList.toggle('visible', term.length > 0);
 
-      if (clearBtn) {
-        clearBtn.addEventListener('click', () => {
-          input.value = '';
-          clearBtn.classList.remove('visible');
           const links = container.querySelectorAll('.link');
-          links.forEach(link => link.classList.remove('hidden'));
-          input.focus();
+          links.forEach(link => {
+            const text = link.textContent.toLowerCase();
+            const matches = term === '' || text.includes(term);
+            link.classList.toggle('hidden', !matches);
+          });
         });
-      }
-    }
 
-    // Initialize search for all categories
-    ['proxy', 'games', 'music', 'movies', 'ai'].forEach(setupSearch);
+        if (clear) {
+          clear.addEventListener('click', () => {
+            input.value = '';
+            clear.classList.remove('visible');
+            const links = container.querySelectorAll('.link');
+            links.forEach(link => link.classList.remove('hidden'));
+            input.focus();
+          });
+        }
+      });
+    });
 
     // Random across all
     document.getElementById('random-all')?.addEventListener('click', () => {
