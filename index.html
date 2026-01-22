@@ -25,7 +25,7 @@
       --search-border: rgba(0,212,255,0.3);
       --search-focus: rgba(0,212,255,0.7);
       --btn-base-glow: 0 8px 25px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.3);
-      --btn-hover-glow: 0 15px 40px rgba(0,0,0,0.6), 0 0 60px rgba(255,255,255,0.9); /* bright white backlight */
+      --btn-hover-glow: 0 15px 40px rgba(0,0,0,0.6), 0 0 60px rgba(255,255,255,0.9); /* strong white backlight */
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -534,14 +534,15 @@
       landing.classList.remove('hidden');
     });
 
-    // Fixed search logic
+    // Fixed & working search logic
     function setupSearch(categoryId) {
       const input = document.getElementById(`search-${categoryId}`);
       const clearBtn = document.querySelector(`#${categoryId} .clear-search`);
       const linksContainer = document.getElementById(`links-${categoryId}`);
 
-      if (!input || !linksContainer || !clearBtn) return;
+      if (!input || !clearBtn || !linksContainer) return;
 
+      // Filtering
       input.addEventListener('input', () => {
         const term = input.value.toLowerCase().trim();
         clearBtn.classList.toggle('visible', term.length > 0);
@@ -553,6 +554,7 @@
         });
       });
 
+      // Clear
       clearBtn.addEventListener('click', () => {
         input.value = '';
         clearBtn.classList.remove('visible');
@@ -562,7 +564,7 @@
       });
     }
 
-    // Initialize search for all categories
+    // Apply to all categories
     ['proxy', 'games', 'music', 'movies', 'ai'].forEach(setupSearch);
 
     // Random across all
