@@ -1,1 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STARLINK</title>
+  <style>
+    /* Root variables for next-gen liquid glass theme */
+    :root {
+      --bg-color: #000000; /* Space black */
+      --text-color: #ffffff;
+      --accent-color: #ffffff; /* White for stars and buttons */
+      --glass-bg: rgba(255, 255, 255, 0.05); /* Subtle glass */
+      --glass-blur: blur(10px);
+      --glow-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      --backlight-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+      --levitate-transform: translateY(-5px);
+      --transition: all 0.3s ease;
+      --pulse-animation: pulse 2s infinite;
+    }
 
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      overflow: hidden; /* For full-screen canvas */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      position: relative;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1; /* Behind content */
+    }
+
+    .section {
+      display: none;
+      text-align: center;
+      z-index: 1;
+      width: 100%;
+      max-width: 800px;
+      padding: 2rem;
+    }
+
+    .active {
+      display: block;
+    }
+
+    .logo {
+      font-size: 4rem;
+      margin-bottom: 2rem;
+      animation: var(--pulse-animation);
+      text-shadow: var(--glow-shadow);
+    }
+
+    @keyframes pulse {
+      0% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+      50% { text-shadow: 0 0 30px rgba(255, 255, 255, 0.7); }
+      100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+    }
+
+    .button {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-color);
+      padding: 1rem 2rem;
+      margin: 1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--backlight-shadow);
+      font-size: 1.2rem;
+      display: inline-block;
+      text-decoration: none;
+    }
+
+    .button:hover {
+      transform: var(--levitate-transform);
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.6);
+    }
+
+    .white-button {
+      background: rgba(255, 255, 255, 0.9);
+      color: #000;
+    }
+
+    .black-button {
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+    }
+
+    .title {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .search-bar {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-color);
+      padding: 1rem;
+      width: 80%;
+      max-width: 400px;
+      border-radius: 50px;
+      margin-bottom: 2rem;
+      font-size: 1.2rem;
+    }
+
+    .category-list, .site-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .credits {
+      position: absolute;
+      bottom: 1rem;
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="stars-canvas"></canvas>
+
+  <!-- Landing Section -->
+  <div id="landing" class="section active">
+    <div class="logo">⭐ STARLINK</div>
+    <button class="button white-button" onclick="showSection('categories')">Get Started</button>
+    <button class="button white-button" onclick="showSection('credits')">Credits</button>
+  </div>
+
+  <!-- Categories Section -->
+  <div id="categories" class="section">
+    <button class="button white-button" onclick="showSection('landing')">Back to Landing</button>
+    <div class="title">Choose Your Category</div>
+    <input type="text" class="search-bar" id="category-search" oninput="filterCategories()" placeholder="Search categories...">
+    <div class="category-list">
+      <button class="button black-button" onclick="showSection('proxy')">Proxy Sites</button>
+      <button class="button black-button" onclick="showSection('games')">Game Sites</button>
+      <button class="button black-button" onclick="showSection('music')">Music Sites</button>
+      <button class="button black-button" onclick="showSection('movies')">Movie Sites</button>
+      <button class="button black-button" onclick="showSection('ai')">AI Sites</button>
+    </div>
+  </div>
+
+  <!-- Proxy Sites Section -->
+  <div id="proxy" class="section">
+    <button class="button white-button" onclick="showSection('categories')">Back to Categories</button>
+    <div class="title">Proxy Sites</div>
+    <input type="text" class="search-bar" id="proxy-search" oninput="filterSites('proxy')" placeholder="Search proxy sites...">
+    <div class="site-list" id="proxy-list">
+      <!-- Add your proxy sites here as buttons, e.g. -->
+      <!-- <a href="https://example.com" class="button black-button">Example Proxy</a> -->
+    </div>
+  </div>
+
+  <!-- Games Sites Section -->
+  <div id="games" class="section">
+    <button class="button white-button" onclick="showSection('categories')">Back to Categories</button>
+    <div class="title">Game Sites</div>
+    <input type="text" class="search-bar" id="games-search" oninput="filterSites('games')" placeholder="Search game sites...">
+    <div class="site-list" id="games-list">
+      <!-- Add your game sites here as buttons, e.g. -->
+      <!-- <a href="https://example.com" class="button black-button">Example Game</a> -->
+    </div>
+  </div>
+
+  <!-- Music Sites Section -->
+  <div id="music" class="section">
+    <button class="button white-button" onclick="showSection('categories')">Back to Categories</button>
+    <div class="title">Music Sites</div>
+    <input type="text" class="search-bar" id="music-search" oninput="filterSites('music')" placeholder="Search music sites...">
+    <div class="site-list" id="music-list">
+      <!-- Add your music sites here as buttons, e.g. -->
+      <!-- <a href="https://example.com" class="button black-button">Example Music</a> -->
+    </div>
+  </div>
+
+  <!-- Movies Sites Section -->
+  <div id="movies" class="section">
+    <button class="button white-button" onclick="showSection('categories')">Back to Categories</button>
+    <div class="title">Movie Sites</div>
+    <input type="text" class="search-bar" id="movies-search" oninput="filterSites('movies')" placeholder="Search movie sites...">
+    <div class="site-list" id="movies-list">
+      <!-- Add your movie sites here as buttons, e.g. -->
+      <!-- <a href="https://example.com" class="button black-button">Example Movie</a> -->
+    </div>
+  </div>
+
+  <!-- AI Sites Section -->
+  <div id="ai" class="section">
+    <button class="button white-button" onclick="showSection('categories')">Back to Categories</button>
+    <div class="title">AI Sites</div>
+    <input type="text" class="search-bar" id="ai-search" oninput="filterSites('ai')" placeholder="Search AI sites...">
+    <div class="site-list" id="ai-list">
+      <!-- Add your AI sites here as buttons, e.g. -->
+      <!-- <a href="https://example.com" class="button black-button">Example AI</a> -->
+    </div>
+  </div>
+
+  <!-- Credits Section -->
+  <div id="credits" class="section">
+    <button class="button white-button" onclick="showSection('landing')">Back to Landing</button>
+    <div class="title">Credits</div>
+    <p>By: Gunnar Booth</p>
+    <p>This site is published on GitHub. Check out the repository for more: <a href="https://github.com/yourusername/yourrepo" style="color:var(--accent-color);">GitHub Repo</a></p>
+    <p>Built with HTML, CSS, and JavaScript for a next-gen space experience.</p>
+  </div>
+
+  <script>
+    // Show/Hide Sections
+    function showSection(sectionId) {
+      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(sectionId).classList.add('active');
+    }
+
+    // Filter Categories
+    function filterCategories() {
+      const input = document.getElementById('category-search').value.toLowerCase();
+      const buttons = document.querySelectorAll('.category-list .button');
+      buttons.forEach(btn => {
+        btn.style.display = btn.textContent.toLowerCase().includes(input) ? 'inline-block' : 'none';
+      });
+    }
+
+    // Filter Sites (per category)
+    function filterSites(category) {
+      const input = document.getElementById(`${category}-search`).value.toLowerCase();
+      const buttons = document.querySelectorAll(`#${category}-list .button`);
+      buttons.forEach(btn => {
+        btn.style.display = btn.textContent.toLowerCase().includes(input) ? 'inline-block' : 'none';
+      });
+    }
+
+    // Stars Canvas Animation
+    const canvas = document.getElementById('stars-canvas');
+    const ctx = canvas.getContext('2d');
+    let mouseX = 0, mouseY = 0;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    class Star {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+        this.glow = Math.random() * 0.5 + 0.5;
+      }
+
+      update() {
+        // Slow drift
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        // Attract to mouse
+        const dx = mouseX - this.x;
+        const dy = mouseY - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 200) {
+          this.x += dx / dist * 2;
+          this.y += dy / dist * 2;
+        }
+
+        // Wrap around edges
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.glow})`;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = 'white';
+        ctx.fill();
+      }
+    }
+
+    const stars = [];
+    for (let i = 0; i < 200; i++) {
+      stars.push(new Star());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(star => {
+        star.update();
+        star.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
