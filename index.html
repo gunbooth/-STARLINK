@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>STARLINK</title>
-  <!-- Favicon: White star SVG (will be tinted via CSS when needed) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,10 61,35 90,40 68,60 73,90 50,75 27,90 32,60 10,40 39,35' fill='white'/></svg>" type="image/svg+xml">
   <style>
     :root {
@@ -15,8 +14,9 @@
       --star-color: rgba(255, 255, 255, 1);
       --logo-glow: 0 0 35px rgba(255,255,255,0.65), 0 0 70px rgba(255,255,255,0.35), 0 0 100px rgba(255,255,255,0.1);
       --shadow-glow: 0 0 45px var(--glow-color);
-      --glass-bg: rgba(255, 255, 255, 0.07);
-      --glass-border: rgba(255, 255, 255, 0.18);
+      --glass-bg: rgba(20, 20, 20, 0.65);
+      --glass-border: rgba(60, 60, 60, 0.4);
+      --button-bg: #0a0a0a;
       --transition: all 0.35s ease;
     }
     body {
@@ -77,7 +77,7 @@
     .logo-star {
       font-size: 10rem;
       line-height: 0.8;
-      animation: pulse-glow 6s ease-in-out infinite;
+      animation: pulse-glow 7s ease-in-out infinite;
       color: var(--accent-color);
       text-shadow: var(--logo-glow);
       filter: drop-shadow(var(--shadow-glow));
@@ -96,8 +96,8 @@
       50% { text-shadow: 0 0 90px var(--glow-color), 0 0 180px rgba(255,255,255,0.4); }
     }
     .button, .back-button {
-      background: var(--glass-bg);
-      backdrop-filter: blur(15px);
+      background: var(--button-bg);
+      backdrop-filter: blur(12px);
       border: 1px solid var(--glass-border);
       color: var(--text-color);
       padding: 1.3rem 2.8rem;
@@ -105,7 +105,7 @@
       border-radius: 999px;
       cursor: pointer;
       transition: var(--transition);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 20px var(--glow-color);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 20px var(--glow-color);
       font-size: 1.35rem;
       font-weight: 500;
       text-decoration: none;
@@ -117,8 +117,8 @@
     }
     .back-button {
       margin-top: 3rem;
-      background: rgba(255,255,255,0.92);
-      color: #000;
+      background: rgba(30,30,30,0.92);
+      color: var(--text-color);
       font-size: 1.25rem;
       padding: 1.1rem 2.4rem;
     }
@@ -129,8 +129,8 @@
       text-shadow: 0 0 25px var(--glow-color);
     }
     .search-bar {
-      background: var(--glass-bg);
-      backdrop-filter: blur(15px);
+      background: var(--button-bg);
+      backdrop-filter: blur(12px);
       border: 1px solid var(--glass-border);
       color: var(--text-color);
       padding: 1.3rem;
@@ -141,7 +141,7 @@
       outline: none;
       text-align: center;
     }
-    .search-bar::placeholder { color: rgba(255,255,255,0.6); }
+    .search-bar::placeholder { color: rgba(200,200,200,0.7); }
     .category-list, .site-list {
       display: flex;
       flex-wrap: wrap;
@@ -200,7 +200,7 @@
     <div class="title">Proxy Sites</div>
     <input type="text" class="search-bar" id="proxy-search" oninput="filterSites('proxy')" placeholder="Search proxy sites...">
     <div class="site-list" id="proxy-list">
-      <!-- Add your proxy links here -->
+      <!-- Add links here -->
     </div>
     <button class="back-button" onclick="showSection('categories')">Back</button>
   </div>
@@ -267,56 +267,56 @@
           glow: 'rgba(255,255,255,0.75)',
           star: 'rgba(255,255,255,1)',
           logoGlow: '0 0 35px rgba(255,255,255,0.65), 0 0 70px rgba(255,255,255,0.35), 0 0 100px rgba(255,255,255,0.1)',
-          glassBg: 'rgba(255,255,255,0.07)',
-          glassBorder: 'rgba(255,255,255,0.18)'
+          glassBg: 'rgba(20,20,20,0.65)',
+          glassBorder: 'rgba(60,60,60,0.4)'
         },
         cyberpunk: {
           accent: '#00ffff',
           glow: 'rgba(0,255,255,0.8)',
           star: 'rgba(0,255,255,1)',
           logoGlow: '0 0 40px #ff00ff, 0 0 80px #00ffff, 0 0 120px #00ff9f',
-          glassBg: 'rgba(0,255,255,0.05)',
-          glassBorder: 'rgba(255,0,255,0.3)'
+          glassBg: 'rgba(10,30,30,0.65)',
+          glassBorder: 'rgba(0,180,180,0.4)'
         },
         purple: {
           accent: '#c084fc',
           glow: 'rgba(168,85,247,0.7)',
           star: 'rgba(168,85,247,1)',
           logoGlow: '0 0 35px #a855f7, 0 0 70px #c084fc',
-          glassBg: 'rgba(168,85,247,0.06)',
-          glassBorder: 'rgba(168,85,247,0.25)'
+          glassBg: 'rgba(30,20,40,0.65)',
+          glassBorder: 'rgba(140,80,220,0.4)'
         },
         arctic: {
           accent: '#67e8f9',
           glow: 'rgba(103,232,249,0.7)',
           star: 'rgba(103,232,249,1)',
           logoGlow: '0 0 35px #67e8f9, 0 0 70px #a5f3fc',
-          glassBg: 'rgba(103,232,249,0.06)',
-          glassBorder: 'rgba(103,232,249,0.25)'
+          glassBg: 'rgba(20,35,45,0.65)',
+          glassBorder: 'rgba(100,200,240,0.4)'
         },
         matrix: {
           accent: '#00ff41',
           glow: 'rgba(0,255,65,0.7)',
           star: 'rgba(0,255,65,1)',
           logoGlow: '0 0 40px #00ff41, 0 0 80px #00cc33',
-          glassBg: 'rgba(0,255,65,0.05)',
-          glassBorder: 'rgba(0,255,65,0.3)'
+          glassBg: 'rgba(10,25,15,0.65)',
+          glassBorder: 'rgba(0,180,60,0.4)'
         },
         monochrome: {
           accent: '#dddddd',
           glow: 'rgba(255,255,255,0.5)',
           star: 'rgba(255,255,255,0.9)',
           logoGlow: '0 0 20px rgba(255,255,255,0.4), 0 0 40px rgba(255,255,255,0.2)',
-          glassBg: 'rgba(255,255,255,0.04)',
-          glassBorder: 'rgba(255,255,255,0.15)'
+          glassBg: 'rgba(30,30,30,0.65)',
+          glassBorder: 'rgba(100,100,100,0.4)'
         },
         nightmare: {
           accent: '#ff1a1a',
           glow: 'rgba(255, 26, 26, 0.85)',
           star: 'rgba(220, 20, 60, 1)',
           logoGlow: '0 0 50px #ff0000, 0 0 100px #cc0000, 0 0 150px #990000',
-          glassBg: 'rgba(200, 0, 0, 0.06)',
-          glassBorder: 'rgba(220, 20, 60, 0.35)'
+          glassBg: 'rgba(40,10,10,0.65)',
+          glassBorder: 'rgba(180,30,30,0.4)'
         }
       };
 
@@ -327,6 +327,7 @@
       root.style.setProperty('--logo-glow', t.logoGlow);
       root.style.setProperty('--glass-bg', t.glassBg);
       root.style.setProperty('--glass-border', t.glassBorder);
+      root.style.setProperty('--button-bg', theme === 'space' ? '#0a0a0a' : 'rgba(10,10,10,0.9)');
     }
 
     function changeTheme(theme) {
@@ -334,7 +335,7 @@
       localStorage.setItem('starlinkTheme', theme);
     }
 
-    // Load saved theme or default
+    // Load saved theme
     const savedTheme = localStorage.getItem('starlinkTheme') || 'space';
     themeSelect.value = savedTheme;
     applyTheme(savedTheme);
@@ -358,7 +359,7 @@
       });
     }
 
-    // Starfield with theme-colored stars
+    // Starfield – smooth, slow, gentle movement, no cursor interaction
     const canvas = document.getElementById('stars-canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -374,31 +375,33 @@
       reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.z = Math.random() * 3 + 1;
-        this.size = Math.random() * 1.9 + 0.8 / this.z;
-        this.glow = Math.random() * 0.3 + 0.75;
-        this.dx = (Math.random() - 0.5) * 0.15 / this.z;
-        this.dy = (Math.random() - 0.5) * 0.15 / this.z;
+        this.z = Math.random() * 3 + 1; // depth
+        this.size = Math.random() * 1.6 + 0.7 / this.z;
+        this.glow = Math.random() * 0.25 + 0.75;
+        // Very slow, smooth drift
+        this.dx = (Math.random() - 0.5) * 0.06 / this.z;
+        this.dy = (Math.random() - 0.5) * 0.06 / this.z;
       }
       update() {
         this.x += this.dx;
         this.y += this.dy;
-        if (this.x < -80) this.x = canvas.width + 80;
-        if (this.x > canvas.width + 80) this.x = -80;
-        if (this.y < -80) this.y = canvas.height + 80;
-        if (this.y > canvas.height + 80) this.y = -80;
+        // Gentle wrap-around
+        if (this.x < -100) this.x = canvas.width + 100;
+        if (this.x > canvas.width + 100) this.x = -100;
+        if (this.y < -100) this.y = canvas.height + 100;
+        if (this.y > canvas.height + 100) this.y = -100;
       }
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--star-color').trim();
-        ctx.shadowBlur = 22 / this.z;
+        ctx.shadowBlur = 18 / this.z;
         ctx.shadowColor = getComputedStyle(document.body).getPropertyValue('--glow-color').trim();
         ctx.fill();
       }
     }
 
-    const stars = Array.from({length: 380}, () => new Star());
+    const stars = Array.from({length: 420}, () => new Star());
 
     function animate() {
       ctx.fillStyle = '#000000';
