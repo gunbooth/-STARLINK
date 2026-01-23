@@ -93,9 +93,9 @@
     }
     @keyframes pulse-glow {
       0%, 100% { text-shadow: var(--logo-glow); }
-      50% { text-shadow: 0 0 90px var(--glow-color), 0 0 180px rgba(255,255,255,0.4); }
+      50% { text-shadow: 0 0 90px var(--glow-color), 0 0 180px var(--glow-color); }
     }
-    .button, .back-button {
+    .button, .back-button, .search-bar {
       background: var(--button-bg);
       backdrop-filter: blur(12px);
       border: 1px solid var(--glass-border);
@@ -110,15 +110,16 @@
       font-weight: 500;
       text-decoration: none;
       display: inline-block;
+      outline: none;
+      text-align: center;
     }
-    .button:hover, .back-button:hover {
+    .button:hover, .back-button:hover, .search-bar:focus {
       transform: translateY(-5px) scale(1.04);
       box-shadow: 0 15px 40px var(--glow-color), 0 0 45px var(--glow-color);
     }
     .back-button {
       margin-top: 3rem;
       background: rgba(30,30,30,0.92);
-      color: var(--text-color);
       font-size: 1.25rem;
       padding: 1.1rem 2.4rem;
     }
@@ -128,20 +129,9 @@
       color: var(--accent-color);
       text-shadow: 0 0 25px var(--glow-color);
     }
-    .search-bar {
-      background: var(--button-bg);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--glass-border);
-      color: var(--text-color);
-      padding: 1.3rem;
-      width: 80%; max-width: 480px;
-      border-radius: 999px;
-      margin: 1.8rem 0;
-      font-size: 1.35rem;
-      outline: none;
-      text-align: center;
+    .search-bar::placeholder {
+      color: rgba(200,200,200,0.7);
     }
-    .search-bar::placeholder { color: rgba(200,200,200,0.7); }
     .category-list, .site-list {
       display: flex;
       flex-wrap: wrap;
@@ -179,7 +169,7 @@
     </div>
     <button class="button" onclick="showSection('categories')">Get Started</button>
     <button class="button" onclick="showSection('credits')">Credits</button>
-    <a href="https://forms.gle/PxZHLvr9vMd9BsDM9" target="_blank" class="button">Site Requests</a>
+    <a href="https://YOUR-REQUEST-FORM-LINK-HERE.com" target="_blank" class="button">Site Requests</a>
   </div>
 
   <!-- Categories -->
@@ -201,12 +191,13 @@
     <div class="title">Proxy Sites</div>
     <input type="text" class="search-bar" id="proxy-search" oninput="filterSites('proxy')" placeholder="Search proxy sites...">
     <div class="site-list" id="proxy-list">
-      <!-- Replace these with your own links and names -->
       <a href="https://www.croxyproxy.com/" target="_blank" class="button">CroxyProxy</a>
       <a href="https://proxysite.com/" target="_blank" class="button">ProxySite</a>
       <a href="https://www.4everproxy.com/" target="_blank" class="button">4everproxy</a>
       <a href="https://hide.me/en/proxy" target="_blank" class="button">hide.me Proxy</a>
       <a href="https://kproxy.com/" target="_blank" class="button">KProxy</a>
+      <!-- Add or replace with your own: -->
+      <!-- <a href="YOUR_URL" target="_blank" class="button">Your Proxy Name</a> -->
     </div>
     <button class="back-button" onclick="showSection('categories')">Back</button>
   </div>
@@ -216,12 +207,12 @@
     <div class="title">Game Sites</div>
     <input type="text" class="search-bar" id="games-search" oninput="filterSites('games')" placeholder="Search game sites...">
     <div class="site-list" id="games-list">
-      <!-- Replace these with your own links and names -->
       <a href="https://www.crazygames.com/" target="_blank" class="button">CrazyGames</a>
       <a href="https://poki.com/" target="_blank" class="button">Poki</a>
       <a href="https://www.coolmathgames.com/" target="_blank" class="button">Coolmath Games</a>
       <a href="https://now.gg/" target="_blank" class="button">Now.gg</a>
       <a href="https://www.miniclip.com/" target="_blank" class="button">Miniclip</a>
+      <!-- Add or replace with your own -->
     </div>
     <button class="back-button" onclick="showSection('categories')">Back</button>
   </div>
@@ -231,12 +222,12 @@
     <div class="title">Music Sites</div>
     <input type="text" class="search-bar" id="music-search" oninput="filterSites('music')" placeholder="Search music sites...">
     <div class="site-list" id="music-list">
-      <!-- Replace these with your own links and names -->
       <a href="https://soundcloud.com/" target="_blank" class="button">SoundCloud</a>
       <a href="https://open.spotify.com/" target="_blank" class="button">Spotify Web</a>
       <a href="https://www.deezer.com/" target="_blank" class="button">Deezer</a>
       <a href="https://www.youtube.com/" target="_blank" class="button">YouTube Music</a>
       <a href="https://www.bandcamp.com/" target="_blank" class="button">Bandcamp</a>
+      <!-- Add or replace with your own -->
     </div>
     <button class="back-button" onclick="showSection('categories')">Back</button>
   </div>
@@ -246,12 +237,12 @@
     <div class="title">AI Sites</div>
     <input type="text" class="search-bar" id="ai-search" oninput="filterSites('ai')" placeholder="Search AI sites...">
     <div class="site-list" id="ai-list">
-      <!-- Replace these with your own links and names -->
       <a href="https://chat.openai.com/" target="_blank" class="button">ChatGPT</a>
       <a href="https://gemini.google.com/" target="_blank" class="button">Google Gemini</a>
       <a href="https://claude.ai/" target="_blank" class="button">Claude</a>
       <a href="https://www.perplexity.ai/" target="_blank" class="button">Perplexity</a>
       <a href="https://groq.com/" target="_blank" class="button">GroqChat</a>
+      <!-- Add or replace with your own -->
     </div>
     <button class="back-button" onclick="showSection('categories')">Back</button>
   </div>
@@ -261,12 +252,12 @@
     <div class="title">Movie Sites</div>
     <input type="text" class="search-bar" id="movies-search" oninput="filterSites('movies')" placeholder="Search movie sites...">
     <div class="site-list" id="movies-list">
-      <!-- Replace these with your own links and names -->
       <a href="https://tubitv.com/" target="_blank" class="button">Tubi</a>
       <a href="https://pluto.tv/" target="_blank" class="button">Pluto TV</a>
       <a href="https://www.rokuchannel.com/" target="_blank" class="button">Roku Channel</a>
       <a href="https://www.youtube.com/feed/storefront?bp=ogUCKAI%3D" target="_blank" class="button">YouTube Free Movies</a>
       <a href="https://www.crackle.com/" target="_blank" class="button">Crackle</a>
+      <!-- Add or replace with your own -->
     </div>
     <button class="back-button" onclick="showSection('categories')">Back</button>
   </div>
@@ -353,7 +344,7 @@
       root.style.setProperty('--logo-glow', t.logoGlow);
       root.style.setProperty('--glass-bg', t.glassBg);
       root.style.setProperty('--glass-border', t.glassBorder);
-      root.style.setProperty('--button-bg', theme === 'space' ? '#0a0a0a' : 'rgba(10,10,10,0.9)');
+      root.style.setProperty('--button-bg', '#0a0a0a');
     }
 
     function changeTheme(theme) {
@@ -384,7 +375,7 @@
       });
     }
 
-    // Starfield – smooth, slow drift, no mouse interaction
+    // Starfield – smooth, slow, gentle movement, no cursor interaction
     const canvas = document.getElementById('stars-canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -436,4 +427,3 @@
   </script>
 </body>
 </html>
-
