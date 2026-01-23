@@ -15,12 +15,7 @@
       --glass-bg: rgba(255, 255, 255, 0.07);
       --glass-border: rgba(255, 255, 255, 0.18);
       --pulse-glow: 0 0 35px rgba(255,255,255,0.65), 0 0 70px rgba(255,255,255,0.35), 0 0 100px rgba(255,255,255,0.1);
-      --transition: all 0.4s ease;
-      --fade-in: fadeIn 0.8s ease forwards;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
+      --transition: all 0.35s ease;
     }
     body {
       margin: 0;
@@ -30,10 +25,7 @@
       color: var(--text-color);
       overflow: hidden;
       height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      position: relative;
     }
     canvas {
       position: fixed;
@@ -51,6 +43,7 @@
       padding: 2rem;
       box-sizing: border-box;
       background: transparent !important;
+      margin: 0 auto;
     }
     .active {
       display: flex;
@@ -58,100 +51,88 @@
       align-items: center;
       background: transparent !important;
     }
-    .active > * {
-      animation: var(--fade-in);
-      animation-delay: calc(0.1s * var(--order));
-    }
-    .logo-container { --order: 1; }
-    .theme-selector  { --order: 2; }
-    .button          { --order: 3; }
-    .title           { --order: 1; }
-    .search-bar      { --order: 2; }
-    .category-list,
-    .site-list       { --order: 3; }
-    .back-button     { --order: 4; }
-
-    .logo-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 1rem 0 2.5rem;
-    }
-    .logo-star {
-      font-size: 9rem;
-      line-height: 0.8;
-      animation: pulse-glow 5s ease-in-out infinite;
-      text-shadow: var(--pulse-glow);
-      filter: drop-shadow(0 0 45px var(--glow-color));
-    }
-    .logo-text {
-      font-size: 2.8rem;
-      font-weight: bold;
-      letter-spacing: 0.3rem;
-      text-transform: uppercase;
-      margin-top: 0.5rem;
-      text-shadow: 0 0 25px rgba(255,255,255,0.6);
-    }
-    @keyframes pulse-glow {
-      0%, 100% { text-shadow: var(--pulse-glow); }
-      50% { text-shadow: 0 0 80px var(--glow-color), 0 0 160px rgba(255,255,255,0.45); }
-    }
     .theme-selector {
-      margin: 1.5rem 0 2rem;
-      padding: 0.8rem 1.5rem;
+      position: fixed;
+      top: 1.2rem;
+      right: 1.5rem;
+      z-index: 10;
+      padding: 0.7rem 1.3rem;
       background: var(--glass-bg);
       backdrop-filter: blur(15px);
       border: 1px solid var(--glass-border);
       border-radius: 999px;
       color: white;
-      font-size: 1.1rem;
+      font-size: 1rem;
       cursor: pointer;
       outline: none;
-      width: 240px;
+      min-width: 180px;
       text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .logo-container {
+      margin: 4rem 0 3rem;
+    }
+    .logo-star {
+      font-size: 10rem;
+      line-height: 0.8;
+      animation: pulse-glow 6s ease-in-out infinite;
+      text-shadow: var(--pulse-glow);
+      filter: drop-shadow(0 0 50px var(--glow-color));
+    }
+    .logo-text {
+      font-size: 3rem;
+      font-weight: bold;
+      letter-spacing: 0.4rem;
+      text-transform: uppercase;
+      margin-top: 0.8rem;
+      text-shadow: 0 0 30px rgba(255,255,255,0.5);
+    }
+    @keyframes pulse-glow {
+      0%, 100% { text-shadow: var(--pulse-glow); }
+      50% { text-shadow: 0 0 90px var(--glow-color), 0 0 180px rgba(255,255,255,0.4); }
     }
     .button, .back-button {
       background: var(--glass-bg);
       backdrop-filter: blur(15px);
       border: 1px solid var(--glass-border);
       color: white;
-      padding: 1.2rem 2.5rem;
-      margin: 0.8rem;
+      padding: 1.3rem 2.8rem;
+      margin: 1rem;
       border-radius: 999px;
       cursor: pointer;
       transition: var(--transition);
       box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.15);
-      font-size: 1.3rem;
+      font-size: 1.35rem;
       font-weight: 500;
       text-decoration: none;
       display: inline-block;
     }
     .button:hover, .back-button:hover {
-      transform: translateY(-6px) scale(1.05);
-      box-shadow: 0 15px 40px rgba(255,255,255,0.35), 0 0 45px var(--glow-color);
+      transform: translateY(-5px) scale(1.04);
+      box-shadow: 0 15px 40px rgba(255,255,255,0.3), 0 0 45px var(--glow-color);
     }
     .back-button {
-      margin-top: 2.5rem;
+      margin-top: 3rem;
       background: rgba(255,255,255,0.92);
       color: #000;
-      font-size: 1.2rem;
-      padding: 1rem 2.2rem;
+      font-size: 1.25rem;
+      padding: 1.1rem 2.4rem;
     }
     .title {
-      font-size: 3.2rem;
-      margin: 0.5rem 0 1.5rem;
-      text-shadow: 0 0 20px rgba(255,255,255,0.5);
+      font-size: 3.5rem;
+      margin: 1rem 0 2rem;
+      text-shadow: 0 0 25px rgba(255,255,255,0.5);
     }
     .search-bar {
       background: var(--glass-bg);
       backdrop-filter: blur(15px);
       border: 1px solid var(--glass-border);
       color: white;
-      padding: 1.2rem;
-      width: 80%; max-width: 450px;
+      padding: 1.3rem;
+      width: 80%; max-width: 480px;
       border-radius: 999px;
-      margin: 1.5rem 0;
-      font-size: 1.3rem;
+      margin: 1.8rem 0;
+      font-size: 1.35rem;
       outline: none;
       text-align: center;
     }
@@ -160,14 +141,28 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 1.5rem;
-      margin: 1.5rem 0;
+      gap: 1.8rem;
+      margin: 2rem 0;
     }
-    .credits { position: absolute; bottom: 1.5rem; font-size: 0.9rem; opacity: 0.6; }
+    .credits {
+      position: absolute;
+      bottom: 1.5rem;
+      font-size: 0.95rem;
+      opacity: 0.65;
+    }
   </style>
 </head>
 <body data-theme="space">
   <canvas id="stars-canvas"></canvas>
+
+  <select id="theme-select" class="theme-selector" onchange="changeTheme(this.value)">
+    <option value="space">Space (Default)</option>
+    <option value="cyberpunk">Neon Cyberpunk</option>
+    <option value="purple">Midnight Purple</option>
+    <option value="arctic">Arctic Blue</option>
+    <option value="matrix">Matrix Green</option>
+    <option value="monochrome">Void Monochrome</option>
+  </select>
 
   <!-- Landing -->
   <div id="landing" class="section active">
@@ -175,14 +170,6 @@
       <div class="logo-star">✦</div>
       <div class="logo-text">STARLINK</div>
     </div>
-    <select id="theme-select" class="theme-selector" onchange="changeTheme(this.value)">
-      <option value="space">Space (Default)</option>
-      <option value="cyberpunk">Neon Cyberpunk</option>
-      <option value="purple">Midnight Purple</option>
-      <option value="arctic">Arctic Blue</option>
-      <option value="matrix">Matrix Green</option>
-      <option value="monochrome">Void Monochrome</option>
-    </select>
     <button class="button" onclick="showSection('categories')">Get Started</button>
     <button class="button" onclick="showSection('credits')">Credits</button>
   </div>
@@ -206,7 +193,7 @@
     <div class="title">Proxy Sites</div>
     <input type="text" class="search-bar" id="proxy-search" oninput="filterSites('proxy')" placeholder="Search proxy sites...">
     <div class="site-list" id="proxy-list">
-      <!-- Add links here -->
+      <!-- Add your proxy links here, e.g. <a href="..." target="_blank" class="button">Site</a> -->
     </div>
     <button class="back-button" onclick="showSection('categories')">Back</button>
   </div>
@@ -263,14 +250,7 @@
   <script>
     function showSection(id) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      const target = document.getElementById(id);
-      target.classList.add('active');
-      // Reset animations on new section
-      target.querySelectorAll('*').forEach(el => {
-        el.style.animation = 'none';
-        el.offsetHeight; // trigger reflow
-        el.style.animation = null;
-      });
+      document.getElementById(id).classList.add('active');
     }
 
     function filterCategories() {
@@ -302,11 +282,34 @@
         root.style.setProperty('--glass-bg', 'rgba(0, 255, 255, 0.05)');
         root.style.setProperty('--glass-border', 'rgba(255,0,255,0.3)');
         root.style.setProperty('--pulse-glow', '0 0 40px #ff00ff, 0 0 80px #00ffff, 0 0 120px #00ff9f');
-      } // ... (other themes unchanged for brevity)
-      // Add the rest of your theme cases here if needed
+      } else if (theme === 'purple') {
+        root.style.setProperty('--accent-color', '#c084fc');
+        root.style.setProperty('--glow-color', 'rgba(168,85,247,0.7)');
+        root.style.setProperty('--glass-bg', 'rgba(168,85,247,0.06)');
+        root.style.setProperty('--glass-border', 'rgba(168,85,247,0.25)');
+        root.style.setProperty('--pulse-glow', '0 0 35px #a855f7, 0 0 70px #c084fc');
+      } else if (theme === 'arctic') {
+        root.style.setProperty('--accent-color', '#67e8f9');
+        root.style.setProperty('--glow-color', 'rgba(103,232,249,0.7)');
+        root.style.setProperty('--glass-bg', 'rgba(103,232,249,0.06)');
+        root.style.setProperty('--glass-border', 'rgba(103,232,249,0.25)');
+        root.style.setProperty('--pulse-glow', '0 0 35px #67e8f9, 0 0 70px #a5f3fc');
+      } else if (theme === 'matrix') {
+        root.style.setProperty('--accent-color', '#00ff41');
+        root.style.setProperty('--glow-color', 'rgba(0,255,65,0.7)');
+        root.style.setProperty('--glass-bg', 'rgba(0,255,65,0.05)');
+        root.style.setProperty('--glass-border', 'rgba(0,255,65,0.3)');
+        root.style.setProperty('--pulse-glow', '0 0 40px #00ff41, 0 0 80px #00cc33');
+      } else if (theme === 'monochrome') {
+        root.style.setProperty('--accent-color', '#dddddd');
+        root.style.setProperty('--glow-color', 'rgba(255,255,255,0.5)');
+        root.style.setProperty('--glass-bg', 'rgba(255,255,255,0.04)');
+        root.style.setProperty('--glass-border', 'rgba(255,255,255,0.15)');
+        root.style.setProperty('--pulse-glow', '0 0 20px rgba(255,255,255,0.4), 0 0 40px rgba(255,255,255,0.2)');
+      }
     }
 
-    // Starfield - faster, smoother drift
+    // Starfield – smooth, slightly faster professional drift
     const canvas = document.getElementById('stars-canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -323,35 +326,33 @@
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
         this.z = Math.random() * 3 + 1;
-        this.size = Math.random() * 1.8 + 0.7 / this.z;
-        this.glow = Math.random() * 0.35 + 0.7;
-        // Slightly faster base speed
-        this.dx = (Math.random() - 0.5) * 0.12 / this.z;
-        this.dy = (Math.random() - 0.5) * 0.12 / this.z;
+        this.size = Math.random() * 1.9 + 0.8 / this.z;
+        this.glow = Math.random() * 0.3 + 0.75;
+        this.dx = (Math.random() - 0.5) * 0.15 / this.z;  // faster but smooth
+        this.dy = (Math.random() - 0.5) * 0.15 / this.z;
       }
       update() {
         this.x += this.dx;
         this.y += this.dy;
-        // Wrap with buffer
-        if (this.x < -60) this.x = canvas.width + 60;
-        if (this.x > canvas.width + 60) this.x = -60;
-        if (this.y < -60) this.y = canvas.height + 60;
-        if (this.y > canvas.height + 60) this.y = -60;
+        if (this.x < -80) this.x = canvas.width + 80;
+        if (this.x > canvas.width + 80) this.x = -80;
+        if (this.y < -80) this.y = canvas.height + 80;
+        if (this.y > canvas.height + 80) this.y = -80;
       }
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 255, 255, ${this.glow})`;
-        ctx.shadowBlur = 20 / this.z;
+        ctx.shadowBlur = 22 / this.z;
         ctx.shadowColor = 'white';
         ctx.fill();
       }
     }
 
-    const stars = Array.from({length: 350}, () => new Star());
+    const stars = Array.from({length: 380}, () => new Star());
 
     function animate() {
-      ctx.fillStyle = 'rgba(0,0,0,0.04)'; // very light trail → keeps black bg clean
+      ctx.fillStyle = '#000000';  // NO trail – pure black refresh
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       stars.forEach(star => { star.update(); star.draw(); });
       requestAnimationFrame(animate);
